@@ -28,8 +28,6 @@ const processData = data => {
       { $: { d: pathSeparator } = {} } = {}
     ] = rest.path;
 
-    console.log("mapWidth", mapWidth, mapHeight);
-
     const countiesObj = counties
       .map(({ $: { id, d: path } = {}, title: [title] }) => {
         const [name, state] = title.split(",");
