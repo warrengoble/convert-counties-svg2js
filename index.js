@@ -47,7 +47,7 @@ const processData = data => {
         return a;
       }, {});
 
-    // TODO Do transform?
+    // Export JS
     const countiesObjCodeStr = stringify(countiesObj);
     const codeExport = `
     // Generated from Wikipedia link. https://upload.wikimedia.org/wikipedia/commons/5/59/Usa_counties_large.svg
@@ -68,8 +68,23 @@ const processData = data => {
     `;
 
     fs.writeFile("usaCounties.js", codeExport, err => {
-      console.log("Done");
+      console.log("JS data export. Done.");
     });
+
+    // Export JSON
+    fs.writeFile(
+      "usaCounties.json",
+      JSON.stringify({
+        pathBorders,
+        pathSeparator,
+        mapWidth,
+        mapHeight,
+        counties: countiesObj
+      }),
+      err => {
+        console.log("JSON data export. Done.");
+      }
+    );
   });
 };
 
