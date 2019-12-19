@@ -26,7 +26,9 @@ const processData = data => {
       })
       .filter(id => id)
       .reduce((a, { id, path, name, state }) => {
-        a[id] = {
+        const cleanId = Number(id.replace(/\D+/g, ""));
+
+        a[cleanId] = {
           name: name.trim(),
           state: state.trim(),
           path
