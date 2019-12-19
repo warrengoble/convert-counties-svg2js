@@ -15,8 +15,12 @@ const processData = data => {
       return;
     }
 
-    const { svg: { g: [countyGroup] = {} } = {} } = result;
+    const { svg: { g: [countyGroup] = {}, ...rest } = {} } = result;
     const { path: counties = [] } = countyGroup;
+    const [
+      { $: { d: pathBorders } = {} } = {},
+      { $: { d: pathSeparator } = {} } = {}
+    ] = rest.path;
 
     const countiesObj = counties
       .map(({ $: { id, d: path } = {}, title: [title] }) => {
@@ -42,7 +46,15 @@ const processData = data => {
     const codeExport = `
     // Generated from Wikipedia link. https://upload.wikimedia.org/wikipedia/commons/5/59/Usa_counties_large.svg
 
-    export default ${countiesObjCodeStr}
+    const pathBorders = "${pathBorders}";
+    const pathSeparator = "${pathSeparator}";
+
+    export default ${countiesObjCodeStr};
+
+    export {
+      pathBorders,
+      pathSeparator
+    }
     `;
 
     fs.writeFile("usaCounties.js", codeExport, err => {
