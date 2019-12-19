@@ -15,12 +15,20 @@ const processData = data => {
       return;
     }
 
-    const { svg: { g: [countyGroup] = {}, ...rest } = {} } = result;
+    const {
+      svg: {
+        $: { width: mapWidth, height: mapHeight } = {},
+        g: [countyGroup] = {},
+        ...rest
+      } = {}
+    } = result;
     const { path: counties = [] } = countyGroup;
     const [
       { $: { d: pathBorders } = {} } = {},
       { $: { d: pathSeparator } = {} } = {}
     ] = rest.path;
+
+    console.log("mapWidth", mapWidth, mapHeight);
 
     const countiesObj = counties
       .map(({ $: { id, d: path } = {}, title: [title] }) => {
@@ -48,12 +56,16 @@ const processData = data => {
 
     const pathBorders = "${pathBorders}";
     const pathSeparator = "${pathSeparator}";
+    const mapWidth = ${mapWidth};
+    const mapHeight = ${mapHeight};
 
     export default ${countiesObjCodeStr};
 
     export {
       pathBorders,
-      pathSeparator
+      pathSeparator,
+      mapWidth,
+      mapHeight
     }
     `;
 
