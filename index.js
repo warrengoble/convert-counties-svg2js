@@ -1,6 +1,7 @@
 const fs = require("fs");
 const xml2js = require("xml2js");
 const axios = require("axios");
+const { stringify } = require("javascript-stringify");
 
 const url =
   "https://upload.wikimedia.org/wikipedia/commons/5/59/Usa_counties_large.svg";
@@ -65,7 +66,6 @@ const processData = (data) => {
       }, {});
 
     const jsonHeader = `/*\nCreator: ${title}\nLicense: ${license}\n*/\n\n`;
-
     const jsonPayload = JSON.stringify({
       pathBorders,
       pathSeparator,
@@ -74,8 +74,28 @@ const processData = (data) => {
       counties: countiesObj,
     });
 
+    // Export JS
+    const countiesObjCodeStr = stringify(countiesObj);
+    const codeExport = `
+    // Generated from Wikipedia link. https://upload.wikimedia.org/wikipedia/commons/5/59/Usa_counties_large.svg
+    // ${title}
+    // License: ${license}
+    
+    const pathBorders = "${pathBorders}";
+    const pathSeparator = "${pathSeparator}";
+    const mapWidth = ${mapWidth};
+    const mapHeight = ${mapHeight};
+    
+    export default ${countiesObjCodeStr};
+    `;
+
+    // Export JS file
+    fs.writeFile("usaCounties.js", codeExport, (err) => {
+      console.log("JS data export. Done.");
+    });
+
     // Export JSON
-    fs.writeFile("usaCounties.json", jsonHeader + jsonPayload, (err) => {
+    fs.writeFile("usaCounties.json", jsonPayload, (err) => {
       console.log("JSON data export. Done.");
     });
   });
