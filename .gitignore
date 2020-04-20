@@ -1,9 +1,3 @@
 node_modules
 package-lock.json
 report.*
-
-# Input
-Usa_counties_large.svg
-
-# Output
-usaCounties.json
