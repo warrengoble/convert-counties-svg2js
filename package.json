@@ -2,7 +2,7 @@
   "name": "convert-counties-svg2json",
   "version": "1.1.0",
   "description": "",
-  "main": "usaCounties.json",
+  "main": "usaCounties.js",
   "scripts": {
     "prepare": "npm start",
     "start": "node index.js"
@@ -11,6 +11,7 @@
   "license": "CC0",
   "dependencies": {
     "axios": "^0.19.2",
+    "javascript-stringify": "^2.0.1",
     "xml2js": "^0.4.23"
   }
 }
