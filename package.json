@@ -4,7 +4,7 @@
   "description": "",
   "main": "usaCounties.json",
   "scripts": {
-    "start": "node index.js"
+    "start": "node convert.js"
   },
   "author": "",
   "license": "CC0",
