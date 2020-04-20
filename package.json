@@ -4,7 +4,6 @@
   "description": "",
   "main": "usaCounties.json",
   "scripts": {
-    "prepare": "npm start",
     "start": "node index.js"
   },
   "author": "",
