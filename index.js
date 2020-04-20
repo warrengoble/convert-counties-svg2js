@@ -17,16 +17,18 @@ const processData = (data) => {
     const {
       svg: {
         $: { width: mapWidth, height: mapHeight } = {},
-        g: [countyGroup] = {},
+        g,
+        g: [
+          countyGroup,
+          { path: [{ $: { d: pathSeparator } = {} } = {}] = [] },
+        ] = {},
         ...rest
       } = {},
     } = result;
     const { path: counties = [] } = countyGroup;
     const {
-      path: [
-        { $: { d: pathBorders } = {} } = {},
-        { $: { d: pathSeparator } = {} } = {},
-      ],
+      path,
+      path: [{ $: { d: pathBorders } = {} } = {}],
       metadata: [{ "rdf:RDF": rdf } = {}],
     } = rest;
 
